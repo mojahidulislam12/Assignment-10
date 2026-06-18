@@ -106,9 +106,9 @@ export default function NavBar() {
 
         {/* Right Side */}
         <div className="hidden lg:flex items-center gap-3">
-          <Button as={Link} href="/login" color="primary">
-            Login
-          </Button>
+          <Link href="/signin">
+            <Button color="primary">Login</Button>
+          </Link>
         </div>
 
         {/* Mobile Toggle */}
