@@ -3,6 +3,7 @@ import HeroBanner from "@/Components/HomePage/HeroBanner";
 import Image from "next/image";
 import TopLegalExperts from "../Components/HomePage/TopLegalExperts";
 import LegalCategories from "@/Components/HomePage/LegalCategories";
+import StatisticsSection from "@/Components/HomePage/StatisticsSection";
 
 export default function Home() {
   return (
@@ -11,6 +12,7 @@ export default function Home() {
       <FeaturedLawyers></FeaturedLawyers>
       <TopLegalExperts></TopLegalExperts>
       <LegalCategories></LegalCategories>
+      <StatisticsSection></StatisticsSection>
     </div>
   );
 }
