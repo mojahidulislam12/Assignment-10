@@ -4,6 +4,7 @@ import Image from "next/image";
 import TopLegalExperts from "../Components/HomePage/TopLegalExperts";
 import LegalCategories from "@/Components/HomePage/LegalCategories";
 import StatisticsSection from "@/Components/HomePage/StatisticsSection";
+import Testimonials from "@/Components/HomePage/Testimonials";
 
 export default function Home() {
   return (
@@ -13,6 +14,7 @@ export default function Home() {
       <TopLegalExperts></TopLegalExperts>
       <LegalCategories></LegalCategories>
       <StatisticsSection></StatisticsSection>
+      <Testimonials></Testimonials>
     </div>
   );
 }
