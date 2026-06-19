@@ -15,11 +15,12 @@ import {
 
 import { Bars, Xmark, Magnifier, ChevronDown } from "@gravity-ui/icons";
 
-import { authClient } from "@/lib/auth-client";
+// import { authClient } from "@/lib/auth-client";
 import Image from "next/image";
+import { useSession, signOut } from "@/lib/auth-client";
 
 export default function NavBar() {
-  const { data: session } = authClient.useSession();
+  const { data: session } = useSession();
   const user = session?.user;
   console.log(user);
 
@@ -34,7 +35,7 @@ export default function NavBar() {
   // };
 
   const handleSignOut = async () => {
-    await authClient.signOut();
+    await signOut();
   };
 
   const activeClass = (href) =>
@@ -42,30 +43,36 @@ export default function NavBar() {
       ? "text-primary font-semibold"
       : "text-default-600 hover:text-primary";
 
+  const links = (
+    <>
+      <li className="text-lg font-medium">
+        <Link href="/">Home</Link>
+      </li>
+      <li className="text-lg font-medium">
+        <Link href="/lawyers">Browse Lawyers</Link>
+      </li>
+    </>
+  );
   const navLinks = [
     {
-      label: "Home",
+      name: "Home",
       href: "/",
     },
     {
-      label: "Browse Lawyers",
+      name: "Browse Lawyers",
       href: "/lawyers",
     },
   ];
-
-  const NavItems = (
-    <>
-      {navLinks.map((item) => (
-        <Link
-          key={item.href}
-          href={item.href}
-          className={activeClass(item.href)}
-        >
-          {item.label}
-        </Link>
-      ))}
-    </>
-  );
+  // const navLinks = [
+  //   {
+  //     label: "Home",
+  //     href: "/",
+  //   },
+  //   {
+  //     label: "Browse Lawyers",
+  //     href: "/lawyers",
+  //   },
+  // ];
 
   return (
     <header className="sticky top-0 z-50 border-b bg-background">
@@ -77,7 +84,18 @@ export default function NavBar() {
 
         {/* Desktop Navigation */}
         <nav className="hidden lg:flex items-center gap-6">
-          {NavItems}
+          <ul className="menu menu-horizontal lg:flex items-center  px-1 gap-3">
+            {navLinks.map((link) => (
+              <li className="text-lg font-medium" key={link.name}>
+                <Link
+                  href={link.href}
+                  className="rounded-full px-4 py-2 text-sm font-medium  transition hover:bg-white/10 text-black"
+                >
+                  {link.name}
+                </Link>
+              </li>
+            ))}
+          </ul>
 
           {/* {user && (
             <Dropdown>
@@ -117,14 +135,24 @@ export default function NavBar() {
         {/* Right Side */}
         <div className="hidden lg:flex items-center gap-3">
           {user ? (
-            <Button
-              onClick={handleSignOut}
-              color="danger"
-              variant="flat"
-              className="w-full"
-            >
-              Logout
-            </Button>
+            <>
+              <Image
+                src={user?.image}
+                width={45}
+                height={45}
+                alt="user"
+                className="rounded-full border-2 border-blue-500 object-cover"
+              />
+
+              <Button
+                onClick={handleSignOut}
+                color="danger"
+                variant="flat"
+                className="w-full btn"
+              >
+                Logout
+              </Button>
+            </>
           ) : (
             <Link href="/signin">
               <Button color="primary" className="w-full">
@@ -154,29 +182,43 @@ export default function NavBar() {
           <div className="space-y-4 p-4">
             <Input placeholder="Search lawyers..." />
             {/* startContent={<Magnifier />} */}
-
-            {NavItems}
-
+            {/* <div>{links}</div> */}
+            <ul
+              tabIndex={0}
+              className="menu menu-sm dropdown-content bg-white rounded-2xl z-[1] mt-3 w-56 p-3 shadow-2xl border border-gray-200"
+            >
+              {navLinks.map((link) => (
+                <li className="text-lg font-medium" key={link.name}>
+                  <Link
+                    href={link.href}
+                    className="rounded-full px-4 py-2 text-sm font-medium  transition hover:bg-white/10 text-black"
+                  >
+                    {link.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>{" "}
             {/* {user && (
               <Link href={`/dashboard/`} className="block">
                 Dashboard
               </Link>
             )} */}
-
-            {user ? (
-              <Button color="danger" variant="flat" className="w-full">
-                Logout
-              </Button>
-            ) : (
-              <Button
-                as={Link}
-                href="/login"
-                color="primary"
-                className="w-full"
-              >
-                Login
-              </Button>
-            )}
+            <div>
+              {user ? (
+                <Button color="danger" variant="flat" className="w-full">
+                  Logout
+                </Button>
+              ) : (
+                <Button
+                  as={Link}
+                  href="/login"
+                  color="primary"
+                  className="w-full"
+                >
+                  Login
+                </Button>
+              )}
+            </div>
           </div>
         </div>
       )}
