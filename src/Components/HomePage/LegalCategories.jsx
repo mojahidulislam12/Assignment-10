@@ -1,7 +1,7 @@
 import React from "react";
-import LegalCard from "./LegalCard";
+import LegalCategoriesCard from "./LegalCategoriesCard";
 
-const TopLegalExperts = () => {
+const LegalCategories = () => {
   const lawyers = [
     {
       _id: "lawyer-001",
@@ -14,7 +14,7 @@ const TopLegalExperts = () => {
       status: "available",
       location: "Dhaka, Bangladesh",
       experience: 12,
-      totalHires: 230,
+      totalHires: 185,
       createdAt: "2025-03-15",
     },
     {
@@ -174,11 +174,9 @@ const TopLegalExperts = () => {
   ];
   return (
     <div>
-      <div>
-        <LegalCard lawyers={lawyers}></LegalCard>
-      </div>
+      <LegalCategoriesCard lawyers={lawyers}></LegalCategoriesCard>
     </div>
   );
 };
 
-export default TopLegalExperts;
+export default LegalCategories;
