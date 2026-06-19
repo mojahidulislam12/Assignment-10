@@ -1,5 +1,6 @@
 "use client";
 
+import { authClient } from "@/lib/auth-client";
 import {
   Button,
   Card,
@@ -18,18 +19,37 @@ import { BiShow, BiSolidHide } from "react-icons/bi";
 export default function SignupPage() {
   const [showPassword, setShowPassword] = useState(false);
   //const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     const formData = new FormData(e.currentTarget);
-    const data = Object.fromEntries(formData.entries());
+    const user = Object.fromEntries(formData.entries());
 
     // if (data.password !== data.confirmPassword) {
     //   alert("Passwords do not match");
     //   return;
     // }
+    const { data, error } = await authClient.signIn.email({
+      email: user.email, // required
+      password: user.password, // required
+      rememberMe: true,
+      callbackURL: "/",
+    });
 
-    console.log(data);
+    console.log(user, data);
+  };
+
+  // Google login
+  const handleGoogleSignin = async () => {
+    const data = await authClient.signIn.social({
+      provider: "google",
+    });
+  };
+  // Github login
+  const handleGithubSignin = async () => {
+    const data = await authClient.signIn.social({
+      provider: "github",
+    });
   };
 
   return (
@@ -95,6 +115,23 @@ export default function SignupPage() {
             Login
           </Button>
         </Form>
+        <div className="divider">OR</div>
+        {/* Social login */}
+        <div className="flex">
+          <div className="flex-1">
+            {" "}
+            <Button onClick={handleGoogleSignin} className="w-full">
+              Login with Google
+            </Button>
+          </div>
+          <div className="divider divider-horizontal">OR</div>
+          <div className="flex-1">
+            {" "}
+            <Button onClick={handleGithubSignin} className="w-full">
+              Login with GitHUb
+            </Button>
+          </div>
+        </div>
         {/* LOGIN LINK */}
         <div className="text-center mt-5">
           <p className="text-sm text-slate-600">

@@ -1,5 +1,4 @@
 "use client";
-
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
@@ -16,7 +15,14 @@ import {
 
 import { Bars, Xmark, Magnifier, ChevronDown } from "@gravity-ui/icons";
 
+import { authClient } from "@/lib/auth-client";
+import Image from "next/image";
+
 export default function NavBar() {
+  const { data: session } = authClient.useSession();
+  const user = session?.user;
+  console.log(user);
+
   const pathname = usePathname();
 
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -26,6 +32,10 @@ export default function NavBar() {
   //   name: "John Doe",
   //   role: "lawyer", // client | lawyer | admin
   // };
+
+  const handleSignOut = async () => {
+    await authClient.signOut();
+  };
 
   const activeClass = (href) =>
     pathname === href
@@ -106,9 +116,25 @@ export default function NavBar() {
 
         {/* Right Side */}
         <div className="hidden lg:flex items-center gap-3">
-          <Link href="/signin">
+          {user ? (
+            <Button
+              onClick={handleSignOut}
+              color="danger"
+              variant="flat"
+              className="w-full"
+            >
+              Logout
+            </Button>
+          ) : (
+            <Link href="/signin">
+              <Button color="primary" className="w-full">
+                Login
+              </Button>
+            </Link>
+          )}
+          {/* <Link href="/signin">
             <Button color="primary">Login</Button>
-          </Link>
+          </Link> */}
         </div>
 
         {/* Mobile Toggle */}
@@ -137,7 +163,11 @@ export default function NavBar() {
               </Link>
             )} */}
 
-            {/* {!user ? (
+            {user ? (
+              <Button color="danger" variant="flat" className="w-full">
+                Logout
+              </Button>
+            ) : (
               <Button
                 as={Link}
                 href="/login"
@@ -146,11 +176,7 @@ export default function NavBar() {
               >
                 Login
               </Button>
-            ) : (
-              <Button color="danger" variant="flat" className="w-full">
-                Logout
-              </Button>
-            )} */}
+            )}
           </div>
         </div>
       )}
