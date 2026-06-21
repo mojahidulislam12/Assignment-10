@@ -38,21 +38,21 @@ export default function NavBar() {
     await signOut();
   };
 
-  const activeClass = (href) =>
-    pathname === href
-      ? "text-primary font-semibold"
-      : "text-default-600 hover:text-primary";
+  // const activeClass = (href) =>
+  //   pathname === href
+  //     ? "text-primary font-semibold"
+  //     : "text-default-600 hover:text-primary";
 
-  const links = (
-    <>
-      <li className="text-lg font-medium">
-        <Link href="/">Home</Link>
-      </li>
-      <li className="text-lg font-medium">
-        <Link href="/lawyers">Browse Lawyers</Link>
-      </li>
-    </>
-  );
+  // const links = (
+  //   <>
+  //     <li className="text-lg font-medium">
+  //       <Link href="/">Home</Link>
+  //     </li>
+  //     <li className="text-lg font-medium">
+  //       <Link href="/lawyers">Browse Lawyers</Link>
+  //     </li>
+  //   </>
+  // );
   const navLinks = [
     {
       name: "Home",
@@ -60,19 +60,21 @@ export default function NavBar() {
     },
     {
       name: "Browse Lawyers",
-      href: "/lawyers",
+      href: "/browseLawyer",
     },
   ];
-  // const navLinks = [
-  //   {
-  //     label: "Home",
-  //     href: "/",
-  //   },
-  //   {
-  //     label: "Browse Lawyers",
-  //     href: "/lawyers",
-  //   },
-  // ];
+  const dashboardLinks = {
+    lawyer: "dashboard/lawyer",
+    client: "dashboard/client",
+    admin: "dashboard/admin",
+  };
+
+  if (user?.email) {
+    navLinks.push({
+      name: `${user.role}  Dashboard`,
+      href: dashboardLinks[user?.role || "lawyer"],
+    });
+  }
 
   return (
     <header className="sticky top-0 z-50 border-b bg-background">
@@ -99,10 +101,6 @@ export default function NavBar() {
 
           {/* {user && (
             <Dropdown>
-              <DropdownTrigger>
-                <div>Dashboard</div>
-              </DropdownTrigger>
-
               <DropdownMenu aria-label="Dashboard Menu">
                 {user.role === "client" && (
                   <DropdownItem key="client" href="/dashboard/client">
@@ -111,7 +109,7 @@ export default function NavBar() {
                 )}
 
                 {user.role === "lawyer" && (
-                  <DropdownItem key="lawyer" href="/dashboard/lawyer">
+                  <DropdownItem href="/dashboard/lawyer">
                     Lawyer Dashboard
                   </DropdownItem>
                 )}
@@ -127,10 +125,6 @@ export default function NavBar() {
         </nav>
 
         {/* Search */}
-        <div className="hidden md:block w-80">
-          <Input placeholder="Search lawyers..." />
-          {/* startContent={<Magnifier />} */}
-        </div>
 
         {/* Right Side */}
         <div className="hidden lg:flex items-center gap-3">
@@ -175,7 +169,6 @@ export default function NavBar() {
           {mobileOpen ? <Xmark /> : <Bars />}
         </Button>
       </div>
-
       {/* Mobile Menu */}
       {mobileOpen && (
         <div className="border-t lg:hidden">

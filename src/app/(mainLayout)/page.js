@@ -1,10 +1,9 @@
 import FeaturedLawyers from "@/Components/HomePage/FeaturedLawyers";
 import HeroBanner from "@/Components/HomePage/HeroBanner";
-import Image from "next/image";
-import TopLegalExperts from "../Components/HomePage/TopLegalExperts";
 import LegalCategories from "@/Components/HomePage/LegalCategories";
 import StatisticsSection from "@/Components/HomePage/StatisticsSection";
 import Testimonials from "@/Components/HomePage/Testimonials";
+import TopLegalExperts from "@/Components/HomePage/TopLegalExperts";
 
 export default function Home() {
   return (

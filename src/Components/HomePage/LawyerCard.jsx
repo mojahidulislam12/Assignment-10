@@ -5,7 +5,7 @@ import Link from "next/link";
 import { Card, CardBody, CardFooter, Button } from "@heroui/react";
 
 export default function LawyerCard({ lawyer }) {
-  const { _id, name, image, specialization, fee } = lawyer;
+  const { name, image, specialization, fee } = lawyer;
 
   return (
     <Card className="h-full transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
@@ -30,12 +30,7 @@ export default function LawyerCard({ lawyer }) {
       </Card.Header>
 
       <Card.Footer>
-        <Button
-          as={Link}
-          href={`/lawyers/${_id}`}
-          color="primary"
-          className="w-full"
-        >
+        <Button as={Link} href={`/lawyers`} color="primary" className="w-full">
           View Details
         </Button>
       </Card.Footer>

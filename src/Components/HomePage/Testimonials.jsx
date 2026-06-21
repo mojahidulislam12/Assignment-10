@@ -47,6 +47,8 @@ const Testimonials = () => {
               <Image
                 src={item.image}
                 alt={item.name}
+                width={45}
+                height={45}
                 className="w-12 h-12 rounded-full"
               />
 
