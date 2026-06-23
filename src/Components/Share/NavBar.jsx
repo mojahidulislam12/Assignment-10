@@ -77,7 +77,7 @@ export default function NavBar() {
   }
 
   return (
-    <header className="sticky top-0 z-50 border-b bg-background">
+    <header className=" sticky top-0 z-50 border-b bg-background">
       <div className="container mx-auto flex h-16 items-center justify-between px-4">
         {/* Logo */}
         <Link href="/" className="text-2xl font-bold text-primary">
@@ -129,24 +129,14 @@ export default function NavBar() {
         {/* Right Side */}
         <div className="hidden lg:flex items-center gap-3">
           {user ? (
-            <>
-              <Image
-                src={user?.image}
-                width={45}
-                height={45}
-                alt="user"
-                className="rounded-full border-2 border-blue-500 object-cover"
-              />
-
-              <Button
-                onClick={handleSignOut}
-                color="danger"
-                variant="flat"
-                className="w-full btn"
-              >
-                Logout
-              </Button>
-            </>
+            <Button
+              onClick={handleSignOut}
+              color="danger"
+              variant="flat"
+              className="w-full btn"
+            >
+              Logout
+            </Button>
           ) : (
             <Link href="/signin">
               <Button color="primary" className="w-full">

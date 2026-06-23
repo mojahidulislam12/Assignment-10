@@ -16,6 +16,7 @@ import {
   Clock,
 } from "@gravity-ui/icons";
 import { Button, Drawer } from "@heroui/react";
+import Image from "next/image";
 import Link from "next/link";
 
 export function DashboardSidebar() {
@@ -46,7 +47,7 @@ export function DashboardSidebar() {
       icon: Person,
 
       label: "Manage Profile",
-      href: "/dashboard/lawyer/manageLegalProfile",
+      href: "/dashboard/lawyers/manageLegalProfile",
     },
     {
       icon: Gear,
@@ -72,7 +73,23 @@ export function DashboardSidebar() {
   const navItems = navLinksMap[user?.role || "client"];
 
   const navContent = (
-    <nav className="flex flex-col gap-1">
+    <nav className="flex flex-col gap-1 border rounded-full border-white/5">
+      <div className="mt-5 ">
+        {" "}
+        <Image
+          className="ml-20 border-2 border-black rounded-full"
+          src={user?.image}
+          alt=""
+          width={50}
+          height={50}
+        ></Image>
+        <div className="space-y-2">
+          <h1 className="text-center">{user?.role}</h1>
+          <p className="text-center">{user?.name}</p>
+          <p className="text-center">{user?.email}</p>
+        </div>
+      </div>
+      <div className="divider"></div>
       {navItems?.map((item) => (
         <Link
           key={item?.label}
@@ -104,7 +121,9 @@ export function DashboardSidebar() {
               <Drawer.Header>
                 <Drawer.Heading>Navigation</Drawer.Heading>
               </Drawer.Header>
-              <Drawer.Body>{navContent}</Drawer.Body>
+              <Drawer.Body>
+                <div>{navContent}</div>
+              </Drawer.Body>
             </Drawer.Dialog>
           </Drawer.Content>
         </Drawer.Backdrop>
