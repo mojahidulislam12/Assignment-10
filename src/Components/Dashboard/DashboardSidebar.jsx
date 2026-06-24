@@ -14,6 +14,7 @@ import {
   CreditCard,
   Bars,
   Clock,
+  ChartAreaStackedNormalized,
 } from "@gravity-ui/icons";
 import { Button, Drawer } from "@heroui/react";
 import Image from "next/image";
@@ -23,12 +24,36 @@ export function DashboardSidebar() {
   const { data: session } = useSession();
   const user = session?.user;
   const clientNavLinks = [
-    { icon: House, href: "/dashboard/lawyer", label: "Home" },
-    { icon: Magnifier, href: "/dashboard/lawyer", label: "Search" },
-    { icon: Bell, href: "/dashboard/lawyer", label: "Notifications" },
-    { icon: Envelope, href: "/dashboard/lawyer", label: "Messages" },
-    { icon: Person, href: "/dashboard/lawyer", label: "Profile" },
-    { icon: Gear, href: "/dashboard/lawyer", label: "Settings" },
+    {
+      icon: House,
+      href: "/dashboard",
+      label: "Dashboard",
+    },
+    {
+      icon: Clock,
+      href: "/dashboard/user/hiring-history",
+      label: "Hiring History",
+    },
+    {
+      icon: ChartAreaStackedNormalized,
+      href: "/dashboard/user/comments",
+      label: "My Comments",
+    },
+    {
+      icon: Person,
+      href: "/dashboard/user/update-profile",
+      label: "Update Profile",
+    },
+    {
+      icon: Magnifier,
+      href: "/lawyers",
+      label: "Find Lawyers",
+    },
+    {
+      icon: Gear,
+      href: "/dashboard/settings",
+      label: "Settings",
+    },
   ];
   const lawyerNavLinks = [
     {

@@ -1,5 +1,5 @@
 "use client";
-import { addProfile } from "@/lib/api/lawyer/action";
+import { addProfile, updateProfile } from "@/lib/api/lawyer/action";
 import { LawyerProfile } from "@/lib/api/lawyer/lawyerdata";
 import { useSession } from "@/lib/auth-client";
 import { uploadImage } from "@/utils/uploadImage";
@@ -7,7 +7,6 @@ import { Button, Card, CardHeader, Form, Input, TextArea } from "@heroui/react";
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
-import { FaImage } from "react-icons/fa";
 
 const Lawyer = () => {
   const { data: session } = useSession();
@@ -40,6 +39,7 @@ const Lawyer = () => {
         reset({
           name: profile.name || "",
           email: profile.email || "",
+
           specialization: profile.specialization || "",
           status: profile.status || "",
           location: profile.location || "",
@@ -64,24 +64,39 @@ const Lawyer = () => {
 
     const lawyerData = {
       name: data.name,
-      email: data.email,
+      // email: data.email,
+      email: session.user.email,
       image: imageUrl,
       specialization: data.specialization,
-      status: data.status,
+      // status: data.status,
       location: data.location,
       experience: data.experience,
       totalHires: data.totalHires,
       fee: data.fee,
       bio: data.bio,
     };
-    const resData = await addProfile(lawyerData);
-    if (resData.insertedId) {
-      toast.success("Profile Successfully Created");
+    if (!myProfile) {
+      const resData = await addProfile(lawyerData);
+      if (resData.insertedId) {
+        toast.success("Profile Successfully Created");
+        window.location.reload();
+      }
+    } else {
+      const updateRes = await updateProfile(lawyerData, myProfile._id);
+      if (updateRes.modifiedCount > 0) {
+        toast.success("Profile Updated Successfully");
+        window.location.reload();
+      }
     }
   };
   return (
     <div className="border-b border-white/5 pb-5">
-      <h1 className="text-3xl font-extrabold">My Profile</h1>
+      {myProfile ? (
+        <h1 className="text-3xl font-extrabold">Update Your Profile</h1>
+      ) : (
+        <h1 className="text-3xl font-extrabold">Create Your Profile</h1>
+      )}
+
       <div className="mt-6 space-y-6 max-w-3xl">
         <Card
           className="border border-white/5 bg-white backdrop-blur-xl shadow-2xl rounded-2xl"
@@ -105,11 +120,11 @@ const Lawyer = () => {
                 id="name"
                 label="Organization Name"
                 labelPlacement="outside"
-                placeholder={session?.user?.name}
+                placeholder=""
                 required
                 className="w-full bg-white border-white/10 hover:border-pink-500/50 focus-within:!border-pink-500"
               />
-              <label htmlFor="">Email</label>
+              {/* <label htmlFor="">Email</label>
               <Input
                 defaultValue={myProfile?.email}
                 {...register("email", { required: "Name is required" })}
@@ -119,9 +134,10 @@ const Lawyer = () => {
                 placeholder={session?.user?.email}
                 required
                 className="w-full bg-white border-white/10 hover:border-pink-500/50 focus-within:!border-pink-500"
-              />
+              /> */}
               <label htmlFor="">ImageUrl</label>
               <Input
+                defaultValue={myProfile?.image}
                 {...register("image", { required: "Name is required" })}
                 id="image"
                 type="file"
@@ -132,15 +148,7 @@ const Lawyer = () => {
                 required
                 className="w-full bg-white border-white/10 hover:border-pink-500/50 focus-within:!border-pink-500"
               />
-              {/* <label htmlFor="">Specialization</label>
-              <select
-                className="w-full bg-white border border-black/90 rounded-full hover:border-pink-500/50 focus-within:!border-pink-500"
-                {...register("specialization")}
-              >
-                <option value="criminal">Criminal Law</option>
-                <option value="male">male</option>
-                <option value="other">other</option>
-              </select> */}
+
               <div className="space-y-2">
                 <label
                   htmlFor="specialization"
@@ -164,16 +172,8 @@ const Lawyer = () => {
                   <option value="Immigration Law">Immigration Law</option>
                 </select>
               </div>
-              {/* <label htmlFor="">Status</label>
-              <select
-                className="w-full bg-white border-white/10 hover:border-pink-500/50 focus-within:!border-pink-500"
-                {...register("status")}
-              >
-                <option value="available">Available</option>
-                <option value="busy">Busy</option>
-                <option value="other">other</option>
-              </select> */}
-              <div className="space-y-2">
+
+              {/* <div className="space-y-2">
                 <label
                   htmlFor="status"
                   className="block text-sm font-medium text-gray-700"
@@ -192,11 +192,7 @@ const Lawyer = () => {
                   <option value="unavailable">Unavailable</option>
                 </select>
               </div>
-              {/* <label htmlFor="">Location</label>
-              <select className="w-full" {...register("location")}>
-                <option value="dhaka">Dhaka</option>
-                <option value="cumilla">Cumilla</option>
-              </select> */}
+               */}
               <div className="space-y-2">
                 <label
                   htmlFor="location"
@@ -218,16 +214,7 @@ const Lawyer = () => {
                   <option value="sylhet">Sylhet</option>
                 </select>
               </div>
-              {/* <label htmlFor="">Experience</label>
-              <Input
-                {...register("experience", { required: "Name is required" })}
-                id="experience"
-                label="Organization Website"
-                labelPlacement="outside"
-                placeholder="techevents.corp"
-                required
-                className="w-full bg-white border-white/10 hover:border-pink-500/50 focus-within:!border-pink-500"
-              /> */}
+
               <div className="space-y-2">
                 <label
                   htmlFor="experience"
@@ -274,16 +261,7 @@ const Lawyer = () => {
                 required
                 className="w-full bg-white border-white/10 hover:border-pink-500/50 focus-within:!border-pink-500"
               />
-              {/* <Input
-                {...register("imageUrl", { required: "image is Required" })}
-                type="file"
-                accept="image/*"
-                id="image"
-                placeholder="https://example.com/avatar.jpg"
-                labelPlacement="outside"
-                startContent={<FaImage className="text-slate-400 text-sm" />}
-                className="w-full bg-white border-white/10 hover:border-pink-500/50 focus-within:!border-pink-500"
-              /> */}
+
               <label htmlFor="">Bio</label>
 
               <TextArea
@@ -304,7 +282,7 @@ const Lawyer = () => {
                   className="bg-indigo-600 hover:bg-indigo-500 text-white font-bold h-11 px-6 shadow-lg"
                   radius="lg"
                 >
-                  Save Changes
+                  {myProfile ? "Update Now" : "Save Changes"}
                 </Button>
               </div>
             </Form>

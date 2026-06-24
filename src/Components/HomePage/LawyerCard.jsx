@@ -30,9 +30,11 @@ export default function LawyerCard({ lawyer }) {
       </Card.Header>
 
       <Card.Footer>
-        <Button as={Link} href={`/lawyers`} color="primary" className="w-full">
-          View Details
-        </Button>
+        <Link href={`/browseLawyer/${lawyer._id}`}>
+          <Button color="primary" className="w-full">
+            View Details
+          </Button>
+        </Link>
       </Card.Footer>
     </Card>
   );
