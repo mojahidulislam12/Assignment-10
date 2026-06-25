@@ -1,4 +1,5 @@
-import { Card, Button } from "@heroui/react";
+import Link from "next/link";
+import { Button, Card } from "@heroui/react";
 import {
   FaUserTie,
   FaClock,
@@ -6,12 +7,10 @@ import {
   FaCommentDots,
   FaCrown,
 } from "react-icons/fa";
-import Link from "next/link";
 
-const ClientOverviewPage = async () => {
+const ClientOverviewPage = () => {
   const isPremium = false;
 
-  // Replace with database queries
   const stats = {
     totalHires: 24,
     pendingRequests: 5,
@@ -95,17 +94,17 @@ const ClientOverviewPage = async () => {
       {/* Premium Section */}
       {!isPremium ? (
         <Card
-          className="border border-yellow-500/20 bg-gradient-to-r from-yellow-500/5 via-amber-600/5 to-transparent overflow-hidden"
+          className="border border-yellow-500/20 bg-gradient-to-r from-yellow-500/5 via-amber-600/5 to-transparent"
           radius="lg"
         >
           <div className="p-8 flex flex-col md:flex-row items-center justify-between gap-6">
-            <div className="space-y-2">
+            <div>
               <h3 className="text-xl font-bold text-white flex items-center gap-2">
                 <FaCrown className="text-yellow-400" />
                 Upgrade to Premium
               </h3>
 
-              <p className="text-slate-400 text-sm max-w-xl leading-relaxed">
+              <p className="text-slate-400 text-sm mt-2">
                 Enjoy priority support, faster responses, and exclusive access
                 to premium lawyers and features.
               </p>
@@ -118,7 +117,7 @@ const ClientOverviewPage = async () => {
         </Card>
       ) : (
         <Card
-          className="border border-green-500/20 bg-gradient-to-r from-green-500/5 via-green-600/5 to-transparent overflow-hidden"
+          className="border border-green-500/20 bg-gradient-to-r from-green-500/5 via-green-600/5 to-transparent"
           radius="lg"
         >
           <div className="p-8">
@@ -141,36 +140,29 @@ const ClientOverviewPage = async () => {
           <h3 className="text-xl font-bold text-white mb-6">Quick Actions</h3>
 
           <div className="flex flex-wrap gap-4">
-            <Button as={Link} href="/lawyers" color="primary" radius="full">
-              Find Lawyers
-            </Button>
+            <Link href="/lawyers">
+              <Button color="primary" radius="full">
+                Find Lawyers
+              </Button>
+            </Link>
 
-            <Button
-              as={Link}
-              href="/dashboard/user/hiring-history"
-              color="secondary"
-              radius="full"
-            >
-              Hiring History
-            </Button>
+            <Link href="/dashboard/user/hiring-history">
+              <Button color="secondary" radius="full">
+                Hiring History
+              </Button>
+            </Link>
 
-            <Button
-              as={Link}
-              href="/dashboard/user/comments"
-              color="success"
-              radius="full"
-            >
-              My Comments
-            </Button>
+            <Link href="/dashboard/user/comments">
+              <Button color="success" radius="full">
+                My Comments
+              </Button>
+            </Link>
 
-            <Button
-              as={Link}
-              href="/dashboard/user/update-profile"
-              color="warning"
-              radius="full"
-            >
-              Update Profile
-            </Button>
+            <Link href="/dashboard/user/update-profile">
+              <Button color="warning" radius="full">
+                Update Profile
+              </Button>
+            </Link>
           </div>
         </div>
       </Card>
@@ -183,36 +175,42 @@ const ClientOverviewPage = async () => {
           </h3>
 
           <div className="space-y-4">
-            <div className="flex items-center justify-between border-b border-default-100 pb-4">
-              <div>
-                <p className="font-medium text-white">John Doe</p>
-                <p className="text-sm text-default-500">Family Law</p>
+            {[
+              {
+                lawyer: "John Doe",
+                specialization: "Family Law",
+                status: "Pending",
+                color: "text-yellow-400",
+              },
+              {
+                lawyer: "Sarah Ahmed",
+                specialization: "Corporate Law",
+                status: "Accepted",
+                color: "text-green-400",
+              },
+              {
+                lawyer: "Michael Smith",
+                specialization: "Property Law",
+                status: "Rejected",
+                color: "text-red-400",
+              },
+            ].map((item) => (
+              <div
+                key={item.lawyer}
+                className="flex items-center justify-between border-b border-default-100 pb-4"
+              >
+                <div>
+                  <p className="font-medium text-white">{item.lawyer}</p>
+                  <p className="text-sm text-default-500">
+                    {item.specialization}
+                  </p>
+                </div>
+
+                <span className={`text-sm font-medium ${item.color}`}>
+                  {item.status}
+                </span>
               </div>
-
-              <span className="text-yellow-400 text-sm font-medium">
-                Pending
-              </span>
-            </div>
-
-            <div className="flex items-center justify-between border-b border-default-100 pb-4">
-              <div>
-                <p className="font-medium text-white">Sarah Ahmed</p>
-                <p className="text-sm text-default-500">Corporate Law</p>
-              </div>
-
-              <span className="text-green-400 text-sm font-medium">
-                Accepted
-              </span>
-            </div>
-
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="font-medium text-white">Michael Smith</p>
-                <p className="text-sm text-default-500">Property Law</p>
-              </div>
-
-              <span className="text-red-400 text-sm font-medium">Rejected</span>
-            </div>
+            ))}
           </div>
         </div>
       </Card>

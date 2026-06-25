@@ -13,11 +13,15 @@ import {
   Radio,
 } from "@heroui/react";
 import Link from "next/link";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { BiShow, BiSolidHide } from "react-icons/bi";
 
 export default function SignupPage() {
   const [showPassword, setShowPassword] = useState(false);
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const redirectTo = searchParams.get("redirect") || "/";
   //const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -33,8 +37,11 @@ export default function SignupPage() {
       email: user.email, // required
       password: user.password, // required
       rememberMe: true,
-      callbackURL: "/",
     });
+    if (data) {
+      alert("Login Successful");
+      router.push(redirectTo);
+    }
 
     console.log(user, data);
   };
@@ -136,7 +143,7 @@ export default function SignupPage() {
         <div className="text-center mt-5">
           <p className="text-sm text-slate-600">
             Do not have an account?{" "}
-            <Link href="/signup">
+            <Link href={`/signup?redirect=${redirectTo}`}>
               <span className="text-indigo-600 font-semibold hover:text-indigo-800 transition cursor-pointer">
                 Create Account
               </span>

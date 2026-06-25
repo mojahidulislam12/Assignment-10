@@ -4,7 +4,7 @@ import { Button, Chip, Card } from "@heroui/react";
 import { FaArrowLeft } from "react-icons/fa";
 //import HireButton from "@/Components/Lawyer/HireButton";
 import { baseUrl } from "@/lib/api/baseUrl";
-import BookingModal from "@/Components/Lawyer/BookingModal";
+//import BookingModal from "@/Components/Lawyer/BookingModal";
 
 const fetchSingleLawyer = async (id) => {
   const res = await fetch(`${baseUrl}/api/single-lawyer/${id}`);
@@ -98,7 +98,9 @@ export default async function LawyerDetailsPage({ params }) {
               <span>Status</span>
               <span>{lawyer.status}</span>
             </div>
-            <BookingModal></BookingModal>
+            <Link href={`/browseLawyer/${id}/apply`}>
+              <button className="btn">Hire for this Lawyer</button>
+            </Link>
 
             {/* <HireButton lawyer={lawyer} /> */}
           </Card>

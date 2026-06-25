@@ -26,27 +26,27 @@ export function DashboardSidebar() {
   const clientNavLinks = [
     {
       icon: House,
-      href: "/dashboard",
+      href: "/dashboard/client",
       label: "Dashboard",
     },
     {
       icon: Clock,
-      href: "/dashboard/user/hiring-history",
+      href: "/dashboard/client/hiring-history",
       label: "Hiring History",
     },
     {
       icon: ChartAreaStackedNormalized,
-      href: "/dashboard/user/comments",
+      href: "/dashboard/client/comments",
       label: "My Comments",
     },
     {
       icon: Person,
-      href: "/dashboard/user/update-profile",
+      href: "/dashboard/client/update-profile",
       label: "Update Profile",
     },
     {
       icon: Magnifier,
-      href: "/lawyers",
+      href: "/browseLawyer",
       label: "Find Lawyers",
     },
     {
@@ -72,7 +72,7 @@ export function DashboardSidebar() {
       icon: Person,
 
       label: "Manage Profile",
-      href: "/dashboard/lawyers/manageLegalProfile",
+      href: "/dashboard/lawyer/manageLegalProfile",
     },
     {
       icon: Gear,
