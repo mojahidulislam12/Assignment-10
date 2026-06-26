@@ -9,3 +9,7 @@ export const getLawyers = async (lawyerId) => {
   const result = await serverFetch(`/api/lawyer?lawyerId=${lawyerId}`);
   return result;
 };
+export const getAllLawyers = async () => {
+  const result = await serverFetch(`/api/lawyer`);
+  return result;
+};

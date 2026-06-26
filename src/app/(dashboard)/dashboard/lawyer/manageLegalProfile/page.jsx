@@ -68,7 +68,7 @@ const Lawyer = () => {
       email: session.user.email,
       image: imageUrl,
       specialization: data.specialization,
-      // status: data.status,
+      status: data.status,
       location: data.location,
       experience: data.experience,
       totalHires: data.totalHires,
@@ -173,7 +173,7 @@ const Lawyer = () => {
                 </select>
               </div>
 
-              {/* <div className="space-y-2">
+              <div className="space-y-2">
                 <label
                   htmlFor="status"
                   className="block text-sm font-medium text-gray-700"
@@ -192,7 +192,7 @@ const Lawyer = () => {
                   <option value="unavailable">Unavailable</option>
                 </select>
               </div>
-               */}
+
               <div className="space-y-2">
                 <label
                   htmlFor="location"

@@ -83,12 +83,26 @@ export function DashboardSidebar() {
   ];
 
   const adminNavLinks = [
-    { icon: House, href: "/dashboard/admin", label: "Dashboard" },
-    { icon: Person, href: "/dashboard/admin/users", label: "Users" },
-    { icon: Bell, href: "/admin/companies", label: "Companies" },
-    { icon: Briefcase, href: "/dashboard/admin/jobs", label: "Jobs" },
-    { icon: CreditCard, href: "/dashboard/admin/payments", label: "Payments" },
-    { icon: Gear, href: "/dashboard/admin/settings", label: "Settings" },
+    {
+      icon: House,
+      href: "/dashboard/admin",
+      label: "Dashboard",
+    },
+    {
+      icon: Person,
+      href: "/dashboard/admin/manage-users",
+      label: "Manage Users",
+    },
+    {
+      icon: CreditCard,
+      href: "/dashboard/admin/all-transactions",
+      label: "Transactions",
+    },
+    {
+      icon: ChartAreaStackedNormalized,
+      href: "/dashboard/admin/analytics",
+      label: "Analytics",
+    },
   ];
   const navLinksMap = {
     client: clientNavLinks,
