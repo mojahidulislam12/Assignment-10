@@ -25,7 +25,7 @@ const AdminOverviewPage = async () => {
     <div className="space-y-6 mt-6">
       {/* Statistics */}
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
-        <Card className="glass border-white/5">
+        <Card className="w-full glass border-white/5">
           <div className="p-6 flex items-center justify-between">
             <div>
               <p className="text-xs uppercase text-slate-400 font-semibold">
@@ -88,7 +88,7 @@ const AdminOverviewPage = async () => {
       </div>
 
       {/* Admin Information */}
-      <Card className="border border-red-500/20 bg-gradient-to-r from-red-500/5 via-red-600/5 to-transparent">
+      <Card className="w-full border border-red-500/20 bg-gradient-to-r from-red-500/5 via-red-600/5 to-transparent">
         <div className="p-8 flex items-center justify-between">
           <div>
             <h2 className="text-2xl font-bold flex items-center gap-2">

@@ -117,24 +117,30 @@ export default function SignupPage() {
           {/* SUBMIT BUTTON */}
           <Button
             type="submit"
-            className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 rounded-xl transition-all shadow-md"
+            className="w-full bg-indigo-600 hover:bg-white md:hover:bg-white hover:text-black md:hover:text-black text-white font-semibold py-2 rounded-xl transition-all shadow-md"
           >
             Login
           </Button>
         </Form>
         <div className="divider">OR</div>
         {/* Social login */}
-        <div className="flex">
+        <div className=" md:flex ">
           <div className="flex-1">
             {" "}
-            <Button onClick={handleGoogleSignin} className="w-full">
+            <Button
+              onClick={handleGoogleSignin}
+              className="w-full hover:bg-white md:hover:bg-white hover:text-black md:hover:text-black"
+            >
               Login with Google
             </Button>
           </div>
-          <div className="divider divider-horizontal">OR</div>
+          <div className=" text-center divider divider-horizontal">OR</div>
           <div className="flex-1">
             {" "}
-            <Button onClick={handleGithubSignin} className="w-full">
+            <Button
+              onClick={handleGithubSignin}
+              className="w-full hover:bg-white md:hover:bg-white hover:text-black md:hover:text-black"
+            >
               Login with GitHUb
             </Button>
           </div>

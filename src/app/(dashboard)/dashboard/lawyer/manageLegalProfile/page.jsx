@@ -2,6 +2,7 @@
 import { addProfile, updateProfile } from "@/lib/api/lawyer/action";
 import { LawyerProfile } from "@/lib/api/lawyer/lawyerdata";
 import { useSession } from "@/lib/auth-client";
+
 import { uploadImage } from "@/utils/uploadImage";
 import { Button, Card, CardHeader, Form, Input, TextArea } from "@heroui/react";
 import React, { useEffect, useState } from "react";
@@ -65,6 +66,7 @@ const Lawyer = () => {
     const lawyerData = {
       name: data.name,
       // email: data.email,
+      Id: session.user.id,
       email: session.user.email,
       image: imageUrl,
       specialization: data.specialization,

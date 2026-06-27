@@ -46,9 +46,11 @@ const LawyerApply = ({ lawyer, applicant }) => {
       const hireData = {
         lawyerId: lawyer?._id,
         lawyerName: lawyer?.name,
+        email: lawyer?.email,
         caseType: lawyer?.specialization,
         consultationFee: lawyer?.fee,
-        clientId: applicant?.id,
+
+        id: applicant?.id,
         clientName: applicant?.name,
         clientEmail: applicant?.email,
 

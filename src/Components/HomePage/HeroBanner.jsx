@@ -45,13 +45,15 @@ export default function HeroBanner() {
 
         {/* CTA Buttons */}
         <div className="mt-6 flex gap-3 justify-center">
-          <Button color="primary" as={Link} href="/lawyers">
-            Find Lawyers
-          </Button>
+          <Link href={"/browseLawyer"}>
+            <Button className="w-35 text-xl hover:bg-white hover:text-black">
+              Find Lawyers
+            </Button>
+          </Link>
 
-          <Button variant="light" as={Link} href="/about">
+          {/* <Button variant="light" as={Link} href="/about">
             Learn More
-          </Button>
+          </Button> */}
         </div>
 
         {/* Dots */}

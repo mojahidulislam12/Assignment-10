@@ -28,31 +28,10 @@ export default function NavBar() {
 
   const [mobileOpen, setMobileOpen] = useState(false);
 
-  // Replace with actual auth data
-  // const user = {
-  //   name: "John Doe",
-  //   role: "lawyer", // client | lawyer | admin
-  // };
-
   const handleSignOut = async () => {
     await signOut();
   };
 
-  // const activeClass = (href) =>
-  //   pathname === href
-  //     ? "text-primary font-semibold"
-  //     : "text-default-600 hover:text-primary";
-
-  // const links = (
-  //   <>
-  //     <li className="text-lg font-medium">
-  //       <Link href="/">Home</Link>
-  //     </li>
-  //     <li className="text-lg font-medium">
-  //       <Link href="/lawyers">Browse Lawyers</Link>
-  //     </li>
-  //   </>
-  // );
   const navLinks = [
     {
       name: "Home",
@@ -79,7 +58,6 @@ export default function NavBar() {
   return (
     <header className=" sticky top-0 z-50 border-b bg-background">
       <div className="container mx-auto flex h-16 items-center justify-between px-4">
-        {/* Logo */}
         <Link href="/" className="text-2xl font-bold text-primary">
           LegalEase
         </Link>
@@ -88,10 +66,10 @@ export default function NavBar() {
         <nav className="hidden lg:flex items-center gap-6">
           <ul className="menu menu-horizontal lg:flex items-center  px-1 gap-3">
             {navLinks.map((link) => (
-              <li className="text-lg font-medium" key={link.name}>
+              <li className="text-2xl font-bold" key={link.name}>
                 <Link
                   href={link.href}
-                  className="rounded-full px-4 py-2 text-sm font-medium  transition hover:bg-white/10 text-black"
+                  className="rounded-full px-4 py-2 text-2xl font-bold  transition hover:bg-white/10 text-black"
                 >
                   {link.name}
                 </Link>
@@ -133,13 +111,16 @@ export default function NavBar() {
               onClick={handleSignOut}
               color="danger"
               variant="flat"
-              className="w-full btn"
+              className="w-full btn-danger"
             >
               Logout
             </Button>
           ) : (
             <Link href="/signin">
-              <Button color="primary" className="w-full">
+              <Button
+                color="primary"
+                className="w-35 text-xl hover:bg-white hover:text-black"
+              >
                 Login
               </Button>
             </Link>
@@ -153,7 +134,7 @@ export default function NavBar() {
         <Button
           isIconOnly
           variant="light"
-          className="lg:hidden"
+          className="lg:hidden sticky"
           onPress={() => setMobileOpen(!mobileOpen)}
         >
           {mobileOpen ? <Xmark /> : <Bars />}
@@ -163,7 +144,7 @@ export default function NavBar() {
       {mobileOpen && (
         <div className="border-t lg:hidden">
           <div className="space-y-4 p-4">
-            <Input placeholder="Search lawyers..." />
+            {/* <Input placeholder="Search lawyers..." /> */}
             {/* startContent={<Magnifier />} */}
             {/* <div>{links}</div> */}
             <ul
@@ -180,28 +161,29 @@ export default function NavBar() {
                   </Link>
                 </li>
               ))}
+              {user ? (
+                <Button
+                  color="danger"
+                  onClick={handleSignOut}
+                  variant="flat"
+                  className="w-full"
+                >
+                  Logout
+                </Button>
+              ) : (
+                <Link href="/signin">
+                  <Button as={Link} color="primary" className="w-full">
+                    Login
+                  </Button>
+                </Link>
+              )}
             </ul>{" "}
             {/* {user && (
               <Link href={`/dashboard/`} className="block">
                 Dashboard
               </Link>
             )} */}
-            <div>
-              {user ? (
-                <Button color="danger" variant="flat" className="w-full">
-                  Logout
-                </Button>
-              ) : (
-                <Button
-                  as={Link}
-                  href="/login"
-                  color="primary"
-                  className="w-full"
-                >
-                  Login
-                </Button>
-              )}
-            </div>
+            <div></div>
           </div>
         </div>
       )}

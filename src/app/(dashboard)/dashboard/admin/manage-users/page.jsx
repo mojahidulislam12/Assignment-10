@@ -11,11 +11,11 @@ const manageUsersPage = async () => {
   return (
     <div>
       <div>
-        <div className="container mx-auto rounded-xl border border-zinc-80">
-          <table className="w-full text-sm">
+        <div className="container mx-auto rounded-xl ">
+          <table className="container text-sm">
             <thead className=" text-black">
               <tr>
-                <th className="px-4 py-3 text-left">Name</th>
+                <th className=" text-left">Name</th>
                 <th className="px-4 py-3 text-left">Email</th>
                 <th className="px-4 py-3 text-left">Role</th>
                 <th className="px-4 py-3 text-center">Change Role</th>

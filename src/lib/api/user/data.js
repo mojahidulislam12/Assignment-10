@@ -23,3 +23,15 @@ export const getApplicationByApplicant = async (clientId) => {
   console.log(result);
   return result;
 };
+
+export const getAllUserApplicationByApplicant = async (id) => {
+  const result = await serverFetch(`/api/application/${id}`);
+  console.log(result);
+  return result;
+};
+
+export const getAllUserApplicationByApplicantEmail = async (email) => {
+  const result = await serverFetch(`/api/application/${email}`);
+  console.log(result);
+  return result;
+};

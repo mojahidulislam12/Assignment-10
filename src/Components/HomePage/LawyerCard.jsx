@@ -8,7 +8,7 @@ export default function LawyerCard({ lawyer }) {
   const { name, image, specialization, fee } = lawyer;
 
   return (
-    <Card className="h-full transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
+    <Card className="h-full container mx-auto transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
       <Card.Header className="items-center text-center gap-4">
         <Image
           src={image}
@@ -30,10 +30,10 @@ export default function LawyerCard({ lawyer }) {
       </Card.Header>
 
       <Card.Footer>
-        <Link href={`/browseLawyer/${lawyer._id}`}>
-          <Button color="primary" className="w-full">
+        <Link className="w-full" href={`/browseLawyer/${lawyer._id}`}>
+          <button className="w-full btn bg-primary  rounded-xl text-white hover:bg-white hover:text-black">
             View Details
-          </Button>
+          </button>
         </Link>
       </Card.Footer>
     </Card>
