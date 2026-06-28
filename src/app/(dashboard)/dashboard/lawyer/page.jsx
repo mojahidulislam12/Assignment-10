@@ -1,3 +1,5 @@
+import { getAllApplicant } from "@/lib/api/user/data";
+import { getUserSession } from "@/lib/core/user";
 import { Card } from "@heroui/react";
 import {
   FaUserTie,
@@ -8,6 +10,14 @@ import {
 } from "react-icons/fa";
 
 const LawyerOverviewPage = async () => {
+  const user = await getUserSession();
+  // const applicants = await getAllUserApplicationByApplicantEmail(user.email);
+  // console.log(applicant);
+  const allApplications = await getAllApplicant();
+  const applicant = allApplications.filter(
+    (applicantion) => applicantion.email === user.email,
+  );
+  console.log(applicant);
   const isPremium = false;
 
   // Replace with real database queries later
@@ -28,8 +38,8 @@ const LawyerOverviewPage = async () => {
               <span className="text-slate-400 text-xs font-bold uppercase tracking-wider">
                 Total Requests
               </span>
-              <h2 className="text-3xl font-extrabold text-white mt-1">
-                {stats.totalRequests}
+              <h2 className="text-3xl font-extrabold mt-1">
+                {applicant.length}
               </h2>
             </div>
 

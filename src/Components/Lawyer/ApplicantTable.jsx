@@ -53,7 +53,7 @@ const ApplicantTable = ({ applicant = [] }) => {
   };
 
   return (
-    <div className="w-full rounded-xl bg-[#121212] p-6">
+    <div className="container mx-auto rounded-xl">
       <Table aria-label="Hiring Requests">
         <Table.ScrollContainer>
           <Table.Content>

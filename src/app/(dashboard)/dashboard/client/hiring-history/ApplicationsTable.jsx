@@ -46,8 +46,8 @@ const getStatusChip = (status = "pending") => {
 export default function HistoryTable({ applicant }) {
   console.log(applicant.id);
   return (
-    <div className="w-full bg-[#121212] rounded-xl border border-zinc-800 p-6">
-      <h2 className="text-2xl font-bold text-white mb-6">
+    <div className="w-full ">
+      <h2 className="text-2xl font-bold  mb-6">
         Hiring History ({applicant.length})
       </h2>
 

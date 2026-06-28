@@ -19,7 +19,7 @@ const HiringHistoryPage = async () => {
   );
   console.log(applicant);
   return (
-    <div>
+    <div className="w-full">
       <ApplicantTable applicant={applicant}></ApplicantTable>
     </div>
   );

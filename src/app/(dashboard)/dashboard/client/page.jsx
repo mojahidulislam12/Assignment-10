@@ -7,8 +7,12 @@ import {
   FaCommentDots,
   FaCrown,
 } from "react-icons/fa";
+import { getUserSession } from "@/lib/core/user";
+import { getAllUserApplicationByApplicant } from "@/lib/api/user/data";
 
-const ClientOverviewPage = () => {
+const ClientOverviewPage = async () => {
+  const user = await getUserSession();
+  const applicant = await getAllUserApplicationByApplicant(user.id);
   const isPremium = false;
 
   const stats = {
@@ -28,8 +32,8 @@ const ClientOverviewPage = () => {
               <span className="text-slate-400 text-xs font-bold uppercase tracking-wider">
                 Total Hires
               </span>
-              <h2 className="text-3xl font-extrabold text-white mt-1">
-                {stats.totalHires}
+              <h2 className="text-3xl font-extrabold  mt-1">
+                {applicant.length}
               </h2>
             </div>
 

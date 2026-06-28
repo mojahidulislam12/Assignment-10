@@ -1,104 +1,61 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Card, CardBody, Avatar, Spinner } from "@heroui/react";
-import { useSession } from "@/lib/auth-client";
-import { getUsers } from "@/lib/api/user/data";
 import Image from "next/image";
+import { Card, Spinner } from "@heroui/react";
+import { useSession } from "@/lib/auth-client";
+import { getAllUsers, getUsers } from "@/lib/api/user/data";
 import { EditModal } from "@/Components/client/EditModal";
 
 const ProfilePage = () => {
   const { data: session, isPending } = useSession();
-
-  const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
-
-  useEffect(() => {
-    const fetchUser = async () => {
-      try {
-        if (!session?.user?.id) return;
-
-        const data = await getUsers(session.user.id);
-
-        if (data) {
-          setUser(data);
-        }
-      } catch (err) {
-        console.error(err);
-        setError("Failed to load profile");
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    if (!isPending) {
-      fetchUser();
-    }
-  }, [session, isPending]);
-
-  if (isPending || loading) {
-    return (
-      <div className="flex items-center justify-center min-h-[60vh]">
-        <Spinner size="lg" />
-      </div>
-    );
-  }
-
-  if (error) {
-    return (
-      <div className="flex items-center justify-center min-h-[60vh]">
-        <p className="text-danger">{error}</p>
-      </div>
-    );
-  }
+  console.log(session);
+  const user = session?.user;
 
   return (
-    <div className="max-w-4xl mx-auto p-6">
-      <Card className="shadow-lg">
-        <div className="flex flex-col md:flex-row gap-6 items-center">
+    <div className="max-w-3xl mx-auto p-6">
+      <Card className="p-6 shadow-lg">
+        <div className="flex flex-col md:flex-row gap-6">
           <Image
-            src={user?.image || ""}
-            width={100}
-            height={100}
-            alt=""
-            className="w-28 h-28 text-large"
-            name={user?.name}
+            src={user?.image || "/default-avatar.png"}
+            width={70}
+            height={70}
+            alt={user?.name}
+            className="rounded-full object-cover w-70 h-70"
           />
 
-          <div className="flex-1 space-y-3">
-            <h1 className="text-3xl font-bold">{user?.name || "No Name"}</h1>
+          <div className="flex-1 space-y-4">
+            <h1 className="text-3xl font-bold">{user?.name}</h1>
 
-            <p className="text-default-500">{user?.email || "No Email"}</p>
+            <p>
+              <strong>Email:</strong> {user?.email}
+            </p>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
-              <div>
-                <p className="text-sm text-default-500">Role</p>
-                <p className="font-medium">{user?.role || "User"}</p>
-              </div>
+            <p>
+              <strong>Role:</strong> {user?.role}
+            </p>
 
-              <div>
-                <p className="text-sm text-default-500">Phone</p>
-                <p className="font-medium">{user?.phone || "Not Provided"}</p>
-              </div>
+            <p>
+              <strong>Phone:</strong> {user?.phone || "Not Provided"}
+            </p>
 
-              <div>
-                <p className="text-sm text-default-500">Address</p>
-                <p className="font-medium">{user?.address || "Not Provided"}</p>
-              </div>
+            <p>
+              <strong>Address:</strong> {user?.address || "Not Provided"}
+            </p>
 
-              <div>
-                <p className="text-sm text-default-500">Joined</p>
-                <p className="font-medium">
-                  {user?.createdAt
-                    ? new Date(user.createdAt).toLocaleDateString()
-                    : "N/A"}
-                </p>
-                <div>
-                  <EditModal user={user}></EditModal>
-                  <button className="btn btn-danger">Delete</button>
-                </div>
-              </div>
+            <p>
+              <strong>Joined:</strong>{" "}
+              {user?.createdAt
+                ? new Date(user.createdAt).toLocaleDateString()
+                : "N/A"}
+            </p>
+
+            <div className="flex gap-3 mt-5">
+              <EditModal user={user} />
+
+              <button className="bg-red-500 text-white px-4 py-2 rounded">
+                Delete
+              </button>
             </div>
           </div>
         </div>

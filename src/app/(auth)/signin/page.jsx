@@ -17,7 +17,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { BiShow, BiSolidHide } from "react-icons/bi";
 
-export default function SignupPage() {
+export default function SignInPage() {
   const [showPassword, setShowPassword] = useState(false);
   const router = useRouter();
   const searchParams = useSearchParams();

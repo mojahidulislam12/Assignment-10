@@ -116,16 +116,25 @@ export function DashboardSidebar() {
       <div className="mt-5 ">
         {" "}
         <Image
-          className="ml-20 border-2 border-black rounded-full"
+          className="ml-10 mb-4 border-2 border-black rounded-full"
           src={user?.image}
-          alt=""
-          width={50}
-          height={50}
+          alt={user?.name}
+          width={60}
+          height={60}
         ></Image>
         <div className="space-y-2">
-          <h1 className="text-center">{user?.role}</h1>
-          <p className="text-center">{user?.name}</p>
-          <p className="text-center">{user?.email}</p>
+          <h1 className="">
+            <span className="font-semibold mr-2">Role:</span>
+            {user?.role}
+          </h1>
+          <p className="">
+            <span className="font-semibold mr-2">Name:</span>
+            {user?.name}
+          </p>
+          <p className="">
+            <span className="font-semibold mr-2">Email:</span>
+            {user?.email}
+          </p>
         </div>
       </div>
       <div className="divider"></div>
@@ -144,29 +153,31 @@ export function DashboardSidebar() {
 
   return (
     <>
-      <aside className="hidden max-w-64 shrink-0 border-r border-default p-4 lg:block">
+      <aside className="hidden w-full md:max-w-64 shrink-0 border-r border-default p-4 lg:block">
         {navContent}
       </aside>
 
-      <Drawer>
-        <Button className="lg:hidden" variant="secondary">
-          <Bars />
-          Menu
-        </Button>
-        <Drawer.Backdrop>
-          <Drawer.Content placement="left">
-            <Drawer.Dialog>
-              <Drawer.CloseTrigger />
-              <Drawer.Header>
-                <Drawer.Heading>Navigation</Drawer.Heading>
-              </Drawer.Header>
-              <Drawer.Body>
-                <div>{navContent}</div>
-              </Drawer.Body>
-            </Drawer.Dialog>
-          </Drawer.Content>
-        </Drawer.Backdrop>
-      </Drawer>
+      <div>
+        <Drawer>
+          <Button className="lg:hidden" variant="secondary">
+            <Bars />
+            Menu
+          </Button>
+          <Drawer.Backdrop>
+            <Drawer.Content placement="left">
+              <Drawer.Dialog>
+                <Drawer.CloseTrigger />
+                <Drawer.Header>
+                  <Drawer.Heading>Navigation</Drawer.Heading>
+                </Drawer.Header>
+                <Drawer.Body>
+                  <div>{navContent}</div>
+                </Drawer.Body>
+              </Drawer.Dialog>
+            </Drawer.Content>
+          </Drawer.Backdrop>
+        </Drawer>
+      </div>
     </>
   );
 }

@@ -21,31 +21,27 @@ export function EditModal({ user }) {
   });
 
   const onSubmit = async (data) => {
-    try {
-      let imageUrl = user?.image;
-
-      if (data.image?.[0]) {
-        imageUrl = await uploadImage(data.image[0]);
-      }
-
-      const updatedData = {
-        name: data.name,
-        email: data.email,
-        image: imageUrl,
-      };
-
-      const result = await updateUserProfile(updatedData, user?._id);
-
-      if (result?.modifiedCount > 0) {
-        toast.success("Profile updated successfully");
-        window.location.reload();
-      } else {
-        toast.error("No changes were made");
-      }
-    } catch (error) {
-      console.error(error);
-      toast.error("Failed to update profile");
-    }
+    // try {
+    //   let imageUrl = user?.image;
+    //   if (data.image?.[0]) {
+    //     imageUrl = await uploadImage(data.image[0]);
+    //   }
+    //   const updatedData = {
+    //     name: data.name,
+    //     email: data.email,
+    //     image: imageUrl,
+    //   };
+    //   const result = await updateUserProfile(updatedData, user?.id);
+    //   if (result?.modifiedCount > 0) {
+    //     toast.success("Profile updated successfully");
+    //     window.location.reload();
+    //   } else {
+    //     toast.error("No changes were made");
+    //   }
+    // } catch (error) {
+    //   console.error(error);
+    //   toast.error("Failed to update profile");
+    // }
   };
 
   return (
