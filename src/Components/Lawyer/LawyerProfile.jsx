@@ -38,7 +38,7 @@ const LawyerProfile = () => {
     if (!session?.user?.email) return;
 
     const loadData = async () => {
-      const res = await fetch("http://localhost:5000/api/lawyer");
+      const res = await fetch(`${baseUrl}/api/lawyer`);
       const lawyers = await res.json();
 
       const lawyer = lawyers.find((item) => item.email === session.user.email);

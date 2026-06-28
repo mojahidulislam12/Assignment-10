@@ -1,12 +1,13 @@
 "use client";
 
+import { baseUrl } from "@/lib/api/baseUrl";
 import { deleteUser, DeleteUserProfile } from "@/lib/api/user/action";
 import { AlertDialog, Button } from "@heroui/react";
 import toast from "react-hot-toast";
 
 const DeleteModal = ({ data }) => {
   const handleDelete = async () => {
-    const res = await fetch(`http://localhost:5000/api/user/${data}`, {
+    const res = await fetch(`${baseUrl}/api/user/${data}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
