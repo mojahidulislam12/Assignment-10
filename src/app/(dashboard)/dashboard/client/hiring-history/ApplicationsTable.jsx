@@ -153,26 +153,26 @@ export default function HistoryTable({ applicant }) {
 
                   <Table.Cell>${item.consultationFee}</Table.Cell>
 
-                  <Table.Cell>{formatDate(item.createdAt)}</Table.Cell>
-
-                  <Table.Cell>{getStatusChip(item.status)}</Table.Cell>
+                  <Table.Cell>{item.createdAt}</Table.Cell>
+                  <Table.Cell>{item.status}</Table.Cell>
 
                   <Table.Cell>
-                    {item.status === "accepted" ? (
-                      // <Button
-                      //   as={Link}
-                      //   href={`/payment/${item._id}`}
-                      //   color="success"
-                      //   size="sm"
-                      // >
-                      //   Pay Now
+                    {item.status === "pay now" ? (
+                      // // <Button
+                      // //   as={Link}
+                      // //   href={`/payment/${item._id}`}
+                      // //   color="success"
+                      // //   size="sm"
+                      // // >
+                      // //   Pay Now
                       // </Button>
-                      <form action="/api/checkout_sessions" method="POST">
-                        <section>
-                          <button type="submit" role="link">
-                            Checkout
-                          </button>
-                        </section>
+                      <form action={"/api/payment"} method="POST">
+                        <input name="price" value={item.consultationFee} />
+                        <input name="type" value={item.caseType} />
+                        <input name="lawyerId" value={item._id} />
+                        <Button type="submit" color="success" size="sm">
+                          Pay Now pay
+                        </Button>
                       </form>
                     ) : (
                       <Button variant="light" size="sm">

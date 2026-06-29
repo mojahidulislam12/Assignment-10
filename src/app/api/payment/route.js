@@ -1,40 +1,47 @@
 import { NextResponse } from "next/server";
 import { headers } from "next/headers";
 
-import { PLAN_PRICE_ID, stripe } from "../../../lib/stripe";
+import { stripe } from "../../../lib/stripe";
 import { auth } from "@/lib/auth";
 
 export async function POST(request) {
   try {
     const headersList = await headers();
     const origin = headersList.get("origin");
-    // const formData = await request.formData();
-    // const planId = formData.get("plan_id");
-    // const priceId = PLAN_PRICE_ID[planId];
     const userSession = await auth.api.getSession({
       headers: await headers(),
     });
+
     const user = userSession?.user;
-    const PRICE_ID = "price_1TnUOZ85b6Jt7npjbx8TQ1qH";
+    const formData = await request.formData();
+    const price = formData.get("price");
+    const caseType = formData.get("type");
+    const lawyerId = formData.get("lawyerId");
+
     // Create Checkout Sessions from body params.
     const session = await stripe.checkout.sessions.create({
-      customer_email: user?.email,
       line_items: [
         {
           // Provide the exact Price ID (for example, price_1234) of the product you want to sell
-          price: PRICE_ID,
+          price_data: {
+            currency: "usd",
+            unit_amount: Number(price) * 100,
+            product_data: {
+              caseType: caseType,
+            },
+          },
           quantity: 1,
         },
       ],
       metadata: {
-        priceId: PRICE_ID,
-        userId: user?.id,
-        useRole: user?.role,
-        userEmail: user?.email,
+        price: Number(price),
+        userId: user.id,
+        userEmail: user.email,
+        caseType,
+        lawyerId,
       },
-
-      mode: "subscription",
-      success_url: `${origin}/pricing/success?session_id={CHECKOUT_SESSION_ID}`,
+      mode: "payment",
+      success_url: `${origin}/dashboard/client/hiring-history?session_id={CHECKOUT_SESSION_ID}`,
     });
     return NextResponse.redirect(session.url, 303);
   } catch (err) {

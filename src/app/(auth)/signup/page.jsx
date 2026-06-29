@@ -76,6 +76,7 @@ export default function SignupPage() {
         name: data.name,
         image: imageUrl,
         role: data.role,
+        plan: "free",
       });
 
     if (signUpData) {
@@ -93,17 +94,17 @@ export default function SignupPage() {
   };
   console.log(errors);
   // Google login
-  const handleGoogleSignin = async () => {
-    const data = await authClient.signIn.social({
-      provider: "google",
-    });
-  };
-  // Github login
-  const handleGithubSignin = async () => {
-    const data = await authClient.signIn.social({
-      provider: "github",
-    });
-  };
+  // const handleGoogleSignin = async () => {
+  //   const data = await authClient.signIn.social({
+  //     provider: "google",
+  //   });
+  // };
+  // // Github login
+  // const handleGithubSignin = async () => {
+  //   const data = await authClient.signIn.social({
+  //     provider: "github",
+  //   });
+  // };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-50 via-indigo-50 to-blue-100 px-4">
@@ -252,7 +253,7 @@ export default function SignupPage() {
         </Form>
         <div className="divider">OR</div>
         {/* Social login */}
-        <div className="md:flex">
+        {/* <div className="md:flex">
           <div className="flex-1">
             {" "}
             <Button
@@ -272,7 +273,7 @@ export default function SignupPage() {
               Login with GitHUb
             </Button>
           </div>
-        </div>
+        </div> */}
         <div className="text-center mt-5">
           <p className="text-sm text-slate-600">
             Already have an account?{" "}

@@ -40,6 +40,7 @@ const LawyerProfile = () => {
     const loadData = async () => {
       const res = await fetch(`${baseUrl}/api/lawyer`);
       const lawyers = await res.json();
+      console.log(lawyers);
 
       const lawyer = lawyers.find((item) => item.email === session.user.email);
 
@@ -62,6 +63,7 @@ const LawyerProfile = () => {
 
     loadData();
   }, [session, reset]);
+  console.log(profile);
 
   const onSubmit = async (data) => {
     const imageFile = data.image[0];

@@ -2,6 +2,8 @@
 
 import { revalidatePath } from "next/cache";
 import { serverMutation } from "../server";
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
 
 export const addProfile = async (data) => {
   const resData = await serverMutation("/api/lawyer", "POST", data);

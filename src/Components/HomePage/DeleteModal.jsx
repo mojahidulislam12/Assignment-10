@@ -1,5 +1,4 @@
 "use client";
-
 import { baseUrl } from "@/lib/api/baseUrl";
 import { deleteUser, DeleteUserProfile } from "@/lib/api/user/action";
 import { AlertDialog, Button } from "@heroui/react";
